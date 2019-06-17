@@ -24,9 +24,12 @@ public class MainActivity extends AppCompatActivity {
         Button bt_5 = findViewById(R.id.bt_5);
         Button bt_6 = findViewById(R.id.bt_6);
         Button bt_7 = findViewById(R.id.bt_7);
+        Button bt_8 = findViewById(R.id.bt_8);
+        Button bt_9_1 = findViewById(R.id.bt_9_1);
+        Button bt_9_2 = findViewById(R.id.bt_9_2);
 
 
-        final Jni jni = new Jni();
+        final Jni jni = new Jni(this);
 
         bt_1.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -107,5 +110,39 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
+
+        bt_8.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                jni.callbackMethodString();
+
+            }
+        });
+
+
+        bt_9_1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String toast = callbackToastInActivity();
+                Log.e("tag",toast);
+            }
+        });
+
+        bt_9_2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                jni.callbackMethodToast();
+            }
+        });
     }
+
+
+
+//    C调java的toast方法，写到activity里
+    public native String callbackToastInActivity();
+    public void toastJavaInativity(String s){
+        Toast.makeText(MainActivity.this, s , Toast.LENGTH_LONG).show();
+
+    }
+
 }

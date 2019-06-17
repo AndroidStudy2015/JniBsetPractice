@@ -5,6 +5,7 @@
 
 #include <stdlib.h>
 # include "jni_study_com_jnibsetpractice_Jni.h"
+# include "jni_study_com_jnibsetpractice_MainActivity.h"
 
 
 #include <android/log.h>
@@ -63,7 +64,7 @@ JNIEXPORT jintArray JNICALL Java_jni_study_com_jnibsetpractice_Jni_transeIntArra
 
 //    得到从java传递来的int[]的长度
     jsize length = (*env)->GetArrayLength(env, jArray);
-    LOGD("length = %d", length);
+    LOGD("数组长度：length = %d", length);
 
 //    得到数组指针
     int *arrayPointer = (*env)->GetIntArrayElements(env, jArray, NULL);
@@ -71,7 +72,7 @@ JNIEXPORT jintArray JNICALL Java_jni_study_com_jnibsetpractice_Jni_transeIntArra
     int i;
     for (i = 0; i < length; i++) {
         *(arrayPointer + i) += 100;
-        LOGD("length = %d", *(arrayPointer + i));
+        LOGD("遍历数组：%d", *(arrayPointer + i));
     }
 // ★★★★将arrayPointer这个int *中值复制到jArray数组中，别忘了这一步骤★★★
     (*env)->SetIntArrayRegion(env, jArray, 0, length, arrayPointer);
@@ -129,4 +130,68 @@ JNIEXPORT jint JNICALL Java_jni_study_com_jnibsetpractice_Jni_callBackMethodInt
 }
 
 
+JNIEXPORT void JNICALL Java_jni_study_com_jnibsetpractice_Jni_callbackMethodString
+        (JNIEnv *env, jobject instance){
 
+    // 1. 获取字节码对象
+
+    jclass clazz = (*env)->FindClass(env, "jni/study/com/jnibsetpractice/Jni");
+
+    // 2. 获取method方法的对象
+    jmethodID methodID = (*env)->GetMethodID(env, clazz, "printString", "(Ljava/lang/String;)V");
+
+    // 3. 通过字节码获取调用者的实例，  这里不需要，因为就是instance
+
+    // 4.通过实例调用方法
+
+    // 4.1调用之前，记得在C里的"字符串"，java不识别，要转换一下
+    jstring result =(*env)->NewStringUTF(env,"hello from c");
+    // 4.2 放心去调用吧
+    (*env)->CallVoidMethod(env,instance,methodID,result);
+}
+
+
+JNIEXPORT jstring JNICALL Java_jni_study_com_jnibsetpractice_MainActivity_callbackToastInActivity
+        (JNIEnv *env, jobject instance){
+
+    // 1. 获取字节码对象
+
+    jclass clazz = (*env)->FindClass(env, "jni/study/com/jnibsetpractice/MainActivity");
+
+    // 2. 获取method方法的对象
+    jmethodID methodID = (*env)->GetMethodID(env, clazz, "toastJavaInativity", "(Ljava/lang/String;)V");
+
+    // 3. 通过字节码获取调用者的实例，  这里不需要，因为就是instance
+
+    // 4.通过实例调用方法
+
+    // 4.1调用之前，记得在C里的"字符串"，java不识别，要转换一下
+    jstring result =(*env)->NewStringUTF(env,"写在Activity的toast");
+    // 4.2 放心去调用吧
+    (*env)->CallVoidMethod(env,instance,methodID,result);
+    return (*env)->NewStringUTF(env, "写在Activity的toast");
+
+}
+
+
+
+JNIEXPORT void JNICALL Java_jni_study_com_jnibsetpractice_Jni_callbackMethodToast
+        (JNIEnv *env, jobject instance){
+
+    // 1. 获取字节码对象
+
+    jclass clazz = (*env)->FindClass(env, "jni/study/com/jnibsetpractice/Jni");
+
+    // 2. 获取method方法的对象
+    jmethodID methodID = (*env)->GetMethodID(env, clazz, "toast", "(Ljava/lang/String;)V");
+
+    // 3. 通过字节码获取调用者的实例，  这里不需要，因为就是instance
+
+    // 4.通过实例调用方法
+
+    // 4.1调用之前，记得在C里的"字符串"，java不识别，要转换一下
+    jstring result =(*env)->NewStringUTF(env,"写在Jni类的toast");
+    // 4.2 放心去调用吧,
+    // ★★★★★★★注意我们保证了toast方法没传入context对象，因为context对象在C里反射出来是不能用的，会空指针异常★★★★★★★★★
+    (*env)->CallVoidMethod(env,instance,methodID,result);
+}

@@ -54,7 +54,30 @@
         android:id="@+id/bt_7"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="实践五：C调用java int参数"
+        android:text="实践六：C调用java int参数"
         />
+
+
+    <Button
+        android:id="@+id/bt_8"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="实践七：C调用java string参数"
+        />
+
+    <Button
+        android:id="@+id/bt_9_1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="实践八：C调用Java Toast（写在activity里） "
+        />
+
+    <Button
+        android:id="@+id/bt_9_2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="实践八：C调用Java Toast（写在Jni类里） "
+        />
+
 
 </LinearLayout>

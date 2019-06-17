@@ -55,6 +55,22 @@ JNIEXPORT void JNICALL Java_jni_study_com_jnibsetpractice_Jni_callBackMethodVoid
 JNIEXPORT jint JNICALL Java_jni_study_com_jnibsetpractice_Jni_callBackMethodInt
   (JNIEnv *, jobject);
 
+/*
+ * Class:     jni_study_com_jnibsetpractice_Jni
+ * Method:    callbackMethodString
+ * Signature: ()V
+ */
+JNIEXPORT void JNICALL Java_jni_study_com_jnibsetpractice_Jni_callbackMethodString
+  (JNIEnv *, jobject);
+
+/*
+ * Class:     jni_study_com_jnibsetpractice_Jni
+ * Method:    callbackMethodToast
+ * Signature: ()V
+ */
+JNIEXPORT void JNICALL Java_jni_study_com_jnibsetpractice_Jni_callbackMethodToast
+  (JNIEnv *, jobject);
+
 #ifdef __cplusplus
 }
 #endif
